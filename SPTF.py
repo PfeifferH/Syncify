@@ -18,6 +18,9 @@ def getTracksSPTF (username):
         #List to store tracks
         trackList = []
 
+        #Formatted track name
+        trackName = ''
+
         #Limit default is 20
         LIMIT = 20
         thisNum = 20
@@ -28,7 +31,13 @@ def getTracksSPTF (username):
             for item in results['items']:
                 track = item['track']
                 thisNum+=1
-                trackList.append(track['name'] + ' - ' + track['artists'][0]['name'])
+                trackName = track['name'].upper()
+                #Get rid of title discrepancies
+                if '(' in trackName:
+                    trackName = trackName.split(' (')[0]
+                if ' -' in trackName:
+                    trackName = trackName.split(' -')[0]
+                trackList.append(trackName + ' - ' + track['artists'][0]['name'].upper())
             offset = offset + LIMIT
 
         return trackList
