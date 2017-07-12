@@ -1,7 +1,7 @@
 import sys
 import spotipy
 import spotipy.util as util
-from SPTF import getTracksSPTF
+from SPTF import authSPTF, getTracksSPTF, addTracksSPTF
 from GPM import getTracksGPM
 
 #sptfusername = input('Enter your Spotify username:')
@@ -10,14 +10,18 @@ sptfUsername = 'acepilotirl'
 gmail = 'pfeifferhayden@gmail.com'
 gpw = 'Hoppy6858'
 
+#Authorize with spotify
+auth = authSPTF(sptfUsername)
+
 print("Google Play: ")
 print(getTracksGPM(gmail, gpw))
 print("Spotify: " )
-print(getTracksSPTF(sptfUsername))
+print(getTracksSPTF(auth))
+
 
 #Tracks lists
 gpmList = getTracksGPM(gmail, gpw)
-sptfList = getTracksSPTF(sptfUsername)
+sptfList = getTracksSPTF(auth)
 
 #Lists to compare which tracks are not common
 includedTracks = []
@@ -65,3 +69,5 @@ print("Excluded Tracks from Spotify: ")
 print(excludedTracksSPTF)
 print("Excluded Tracks from GPM: ")
 print(excludedTracksGPM)
+
+addTracksSPTF(excludedTracksSPTF, auth)

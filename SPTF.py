@@ -5,12 +5,14 @@ import sys
 import spotipy
 import spotipy.util as util
 
-scope = 'user-library-read'
+scope = 'user-library-modify'
 
-
-def getTracksSPTF (username):
-
+def authSPTF (username):
     token = util.prompt_for_user_token(username, scope, '4d8051659f54443e9bea64aad8350768', '38ed408d7ff644d1b97c05321a847c82', 'https://www.spotify.com/ca-en/')
+
+    return token
+
+def getTracksSPTF (token):
 
     if token:
         sp = spotipy.Spotify(auth=token)
@@ -47,3 +49,16 @@ def getTracksSPTF (username):
 
         return None
 
+#Adds tracks to spotify
+def addTracksSPTF (trackList, token):
+
+    if token:
+
+        sp = spotipy.Spotify(auth=token)
+
+        print(sp.current_user_saved_tracks(offset = 0)['items'])
+        print(sp.track('2374M0fQpWi3dLnB54qaLX'))
+        lst = ['2374M0fQpWi3dLnB54qaLX']
+        sp.current_user_saved_tracks_add(lst)
+
+    return None
