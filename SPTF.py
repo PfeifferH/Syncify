@@ -45,20 +45,37 @@ def getTracksSPTF (token):
         return trackList
 
     else:
-        print("Can't get token for", username)
+        print("Can't get token")
 
         return None
 
 #Adds tracks to spotify
 def addTracksSPTF (trackList, token):
 
+
     if token:
 
         sp = spotipy.Spotify(auth=token)
 
-        print(sp.current_user_saved_tracks(offset = 0)['items'])
-        print(sp.track('2374M0fQpWi3dLnB54qaLX'))
-        lst = ['2374M0fQpWi3dLnB54qaLX']
-        sp.current_user_saved_tracks_add(lst)
+        #List of track ids to add to spotify
+        idList = []
+
+        #Search for song using list input
+        for i in range(len(trackList)):
+            results = sp.search(q = trackList[i], type = 'track')
+            items = results['tracks']['items']
+            idList.append(items[0]['id'])
+            print(items)
+
+        #Add the list of tracks
+        if(len(idList) > 0):
+            sp.current_user_saved_tracks_add(idList)
+
+        else:
+            print("All tracks are already added")
+
+    else:
+        print("Can't get token")
+
 
     return None
