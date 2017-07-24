@@ -2,7 +2,7 @@ import sys
 import spotipy
 import spotipy.util as util
 from SPTF import authSPTF, getTracksSPTF, addTracksSPTF
-from GPM import getTracksGPM
+from GPM import authGPM, getTracksGPM, addTracksGPM
 
 #sptfusername = input('Enter your Spotify username:')
 sptfUsername = 'acepilotirl'
@@ -11,17 +11,20 @@ gmail = 'pfeifferhayden@gmail.com'
 gpw = 'Hoppy6858'
 
 #Authorize with spotify
-auth = authSPTF(sptfUsername)
+logSPTF = authSPTF(sptfUsername)
+
+#Authorize with Google Play Music
+logGPM = authGPM(gmail, gpw)
 
 print("Google Play: ")
-print(getTracksGPM(gmail, gpw))
+print(getTracksGPM(logGPM))
 print("Spotify: " )
-print(getTracksSPTF(auth))
+print(getTracksSPTF(logSPTF))
 
 
 #Tracks lists
-gpmList = getTracksGPM(gmail, gpw)
-sptfList = getTracksSPTF(auth)
+gpmList = getTracksGPM(logGPM)
+sptfList = getTracksSPTF(logSPTF)
 
 #Lists to compare which tracks are not common
 includedTracks = []
@@ -70,4 +73,6 @@ print(excludedTracksSPTF)
 print("Excluded Tracks from GPM: ")
 print(excludedTracksGPM)
 
-addTracksSPTF(excludedTracksSPTF, auth)
+#Add tracks to Spotify and Google PLay Music
+addTracksSPTF(excludedTracksSPTF, logSPTF)
+addTracksGPM(excludedTracksGPM, logGPM)

@@ -72,7 +72,7 @@ def addTracksSPTF (trackList, token):
             sp.current_user_saved_tracks_add(idList)
 
         else:
-            print("All tracks are already added")
+            print("All Spotify tracks are already added")
 
     else:
         print("Can't get token")
