@@ -65,7 +65,6 @@ def addTracksSPTF (trackList, token):
             results = sp.search(q = trackList[i], type = 'track')
             items = results['tracks']['items']
             idList.append(items[0]['id'])
-            print(items)
 
         #Add the list of tracks
         if(len(idList) > 0):

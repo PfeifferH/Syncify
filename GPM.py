@@ -27,22 +27,26 @@ def getTracksGPM (api):
 
         artist = tracksDictionary[i] ['artist']
         artist = artist.upper()
-
+        if '$' in artist:
+            artistNameList = artist.split('$')
+            artist = artistNameList[0] + 'S' + artistNameList[1]
         tracksList.append(song + ' - ' + artist)
 
     return tracksList
 
-
+#Adds tracks to Google Play Music
 def addTracksGPM (trackList, api):
 
-
+    #List of Song id's
     idList = []
 
+    #Searches store for each track id and adds it too list
     for i in range(len(trackList)):
         tracks = Mobileclient.search(api, trackList[i], 50)['song_hits'][0]['track']
         idList.append(tracks['storeId'])
 
-    if(len(idList > 0)):
+    #Add tracks to user library
+    if(len(idList) > 0):
         Mobileclient.add_store_tracks(api, idList)
 
     else:
