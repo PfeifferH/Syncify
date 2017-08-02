@@ -3,9 +3,9 @@ from SPTF import authSPTF, getTracksSPTF, addTracksSPTF
 from GPM import authGPM, getTracksGPM, addTracksGPM
 
 from flask import Flask
-app = Flask(_name_)
+app = Flask(__name__)
 
-@app.route("/")
+@app.route('/')
 def main():
     #sptfusername = input('Enter your Spotify username:')
     sptfUsername = 'acepilotirl'
@@ -82,5 +82,5 @@ def main():
 
     return "Completed"
 
-if _name_ == "_main_":
+if __name__ == '__main__':
     app.run()
