@@ -2,11 +2,15 @@
 from SPTF import authSPTF, getTracksSPTF, addTracksSPTF
 from GPM import authGPM, getTracksGPM, addTracksGPM
 
-from flask import Flask
+from flask import Flask, render_template
 app = Flask(__name__)
 
 @app.route('/')
 def main():
+    return render_template('mainPage.html')
+
+@app.route('/sync')
+def sync():
     #sptfusername = input('Enter your Spotify username:')
     sptfUsername = 'acepilotirl'
 
@@ -80,7 +84,7 @@ def main():
     addTracksSPTF(excludedTracksSPTF, logSPTF)
     addTracksGPM(excludedTracksGPM, logGPM)
 
-    return "Completed"
+    return '<html><meta http-equiv="refresh" content="0; url=/" /></html>'
 
 if __name__ == '__main__':
     app.run()
