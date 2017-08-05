@@ -1,4 +1,5 @@
 from gmusicapi import Mobileclient
+from Support import trackFormat
 
 def authGPM(email, password):
     api = Mobileclient()
@@ -20,17 +21,10 @@ def getTracksGPM (api):
 
     for i in range(len(tracksDictionary)):
 
-        song = tracksDictionary[i] ['title']
-        song = song.upper()
-        if '(' in song:
-            song = song.split(' (')[0]
+        trackName = tracksDictionary[i] ['title'].upper()
+        artistName = tracksDictionary[i] ['artist'].upper()
 
-        artist = tracksDictionary[i] ['artist']
-        artist = artist.upper()
-        if '$' in artist:
-            artistNameList = artist.split('$')
-            artist = artistNameList[0] + 'S' + artistNameList[1]
-        tracksList.append(song + ' - ' + artist)
+        tracksList.append(trackFormat(trackName, artistName))
 
     return tracksList
 

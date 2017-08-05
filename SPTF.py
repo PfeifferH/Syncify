@@ -4,6 +4,7 @@
 import sys
 import spotipy
 import spotipy.util as util
+from Support import trackFormat
 
 scope = 'user-library-modify'
 
@@ -34,12 +35,10 @@ def getTracksSPTF (token):
                 track = item['track']
                 thisNum+=1
                 trackName = track['name'].upper()
-                #Get rid of title discrepancies
-                if '(' in trackName:
-                    trackName = trackName.split(' (')[0]
-                if ' -' in trackName:
-                    trackName = trackName.split(' -')[0]
-                trackList.append(trackName + ' - ' + track['artists'][0]['name'].upper())
+                artistName = track['artists'][0]['name'].upper()
+
+                #Use Support.py to format track
+                trackList.append(trackFormat(trackName, artistName))
             offset = offset + LIMIT
 
         return trackList
