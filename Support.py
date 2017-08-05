@@ -14,3 +14,26 @@ def trackFormat(track, artist):
 
     trackName = track + " - " + artist
     return trackName;
+
+def compareTrackLists(compareList, appendList, includedTracks):
+    # Comparison variable
+    isCommon = False
+    excludedTracks = []
+
+    # Compare tracks to check if GPM tracks common with SPTF
+    for i in range(len(compareList)):
+        for j in range(len(appendList)):
+            # compare tracks to add common tracks to list
+            if compareList[i] == appendList[j]:
+                if (compareList[i] not in includedTracks):
+                    includedTracks.append(compareList[i])
+                isCommon = True
+                break
+
+        # add uncommon tracks to list
+        if (isCommon == False):
+            excludedTracks.append(compareList[i])
+
+        isCommon = False
+
+    return [includedTracks, excludedTracks]
