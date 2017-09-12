@@ -3,12 +3,26 @@ from SPTF import authSPTF, getTracksSPTF, addTracksSPTF
 from GPM import authGPM, getTracksGPM, addTracksGPM
 from Support import compareTrackLists
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 app = Flask(__name__)
 
 @app.route('/')
 def main():
     return render_template('mainPage.html')
+
+# @app.route('/my_function', methods=['POST'])
+# def my_function():
+#     text = request.json['data']
+#     processed_text = text.upper()
+#     print(processed_text)
+#     return processed_text
+
+@app.route('/_add_numbers')
+def add_numbers():
+    a = request.args.get('a', 0, type=int)
+    b = request.args.get('b', 0, type=int)
+    return jsonify(result=a + b)
+
 
 @app.route('/sync')
 def sync():

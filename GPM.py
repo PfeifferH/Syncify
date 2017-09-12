@@ -1,9 +1,9 @@
-from gmusicapi import Mobileclient
+from gmusicapi import Mobileclient, Webclient
 from Support import trackFormat
 
 def authGPM(email, password):
     api = Mobileclient()
-    logged_in = api.login(email, password, '352bb0c3576e547d')
+    logged_in = api.login(email, password, Mobileclient.FROM_MAC_ADDRESS)
     # logged_in is True if login was successful
 
     return api
