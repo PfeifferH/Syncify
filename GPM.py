@@ -1,10 +1,15 @@
 from gmusicapi import Mobileclient, Webclient
 from Support import trackFormat
 
+
 def authGPM(email, password):
+
+    print("Email: " + email + " Password: " + password + " MAC: ")
     api = Mobileclient()
     logged_in = api.login(email, password, Mobileclient.FROM_MAC_ADDRESS)
     # logged_in is True if login was successful
+
+    print(logged_in)
 
     return api
 
@@ -46,3 +51,4 @@ def addTracksGPM (trackList, api):
     else:
         print("All Google Play Music tracks are already added")
     return None
+

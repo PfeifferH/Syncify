@@ -5,23 +5,22 @@
 
 	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='mainCSS.css') }}">
 
-	<meta name="google-signin-client_id" content="70634799240-s0idikr1bfivj820b8e1du501kg7r6ci.apps.googleusercontent.com">
+	<!--<meta name="google-signin-client_id" content="70634799240-s0idikr1bfivj820b8e1du501kg7r6ci.apps.googleusercontent.com">-->
 
-	<script src="https://apis.google.com/js/platform.js" async defer></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!--<script src="https://apis.google.com/js/platform.js" async defer></script>-->
+	<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
 
-	 <!--<script type="text/javascript">-->
+	 <!--<script type="text/javascript" method="POST">-->
 	 <!--function onSignIn(googleUser) {-->
   		<!--var profile = googleUser.getBasicProfile();-->
-		<!--console.log('HELLO WORLD')-->
 		<!--console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.-->
 		<!--console.log('Name: ' + profile.getName());-->
 		<!--console.log('Image URL: ' + profile.getImageUrl());-->
 		<!--console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.-->
 		<!--$.ajax({-->
-			<!--url: '/my_function',-->
+			<!--url: '/getGmail',-->
 			<!--type: 'POST',-->
-			<!--data: "1",   // converts js value to JSON string-->
+			<!--data: JSON.stringify(profile.getEmail()),   // converts js value to JSON string-->
 			<!--contentType: 'application/json;charset=UTF-8',-->
 			<!--success: function(response) {-->
 				<!--console.log(response) },-->
@@ -36,19 +35,7 @@
      <!--</script>-->
 
 
-	<script type=text/javascript>
-  $(function() {
-    $('a#calculate').bind('click', function() {
-      $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
-        a: $('input[name="a"]').val(),
-        b: $('input[name="b"]').val()
-      }, function(data) {
-        $("#result").text(data.result);
-      });
-      return false;
-    });
-  });
-</script>
+
 
 </head>
 <body>
@@ -64,9 +51,16 @@
 
 	<div class="g-signin2" data-onsuccess="onSignIn"></div>
 
-	<!--<form action="." method="POST">
-		<input type="text" name="text">
+	<form action="/getGmail" method="POST">
+		<input type="text" name="gmail">
+		<input type="password" name="password">
+		<input type="submit">
 
-	</form>-->
+	</form>
+
+
+
+
+	</form>
 </body>
 </html>

@@ -4,39 +4,38 @@ from GPM import authGPM, getTracksGPM, addTracksGPM
 from Support import compareTrackLists
 
 from flask import Flask, render_template, request
+import json
+
+
+
 app = Flask(__name__)
 
 @app.route('/')
 def main():
     return render_template('mainPage.html')
 
-# @app.route('/my_function', methods=['POST'])
-# def my_function():
-#     text = request.json['data']
-#     processed_text = text.upper()
-#     print(processed_text)
-#     return processed_text
+@app.route('/getGmail', methods=['GET', 'POST'])
+def my_function():
+    global gmail
+    global gpw
+    gmail = request.form['gmail']
+    gpw = request.form['password']
+    print(gmail + "         " + gpw)
 
-@app.route('/_add_numbers')
-def add_numbers():
-    a = request.args.get('a', 0, type=int)
-    b = request.args.get('b', 0, type=int)
-    return jsonify(result=a + b)
+    # Authorize with Google Play Music
+    global logGPM
+    logGPM = authGPM(gmail, gpw)
 
+    return '<html><meta http-equiv="refresh" content="0; url=/" /></html>'
 
 @app.route('/sync')
 def sync():
     #sptfusername = input('Enter your Spotify username:')
     sptfUsername = 'acepilotirl'
 
-    gmail = 'pfeifferhayden@gmail.com'
-    gpw = 'Hoppy6858'
-
     #Authorize with spotify
     logSPTF = authSPTF(sptfUsername)
 
-    #Authorize with Google Play Music
-    logGPM = authGPM(gmail, gpw)
 
     print("Google Play: ")
     print(getTracksGPM(logGPM))
