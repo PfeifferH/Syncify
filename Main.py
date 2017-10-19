@@ -15,9 +15,8 @@ def main():
     return render_template('mainPage.html')
 
 @app.route('/getGmail', methods=['GET', 'POST'])
-def my_function():
-    global gmail
-    global gpw
+def getGmail():
+
     gmail = request.form['gmail']
     gpw = request.form['password']
     print(gmail + "         " + gpw)
@@ -28,13 +27,20 @@ def my_function():
 
     return '<html><meta http-equiv="refresh" content="0; url=/" /></html>'
 
+@app.route('/getSPTF', methods=['GET', 'POST'])
+def getSPTF():
+    print(request.form['text'])
+    sptfUsername = request.form['text']
+
+    # Authorize with spotify
+    global logSPTF
+    logSPTF = authSPTF(sptfUsername)
+
+    return '<html><meta http-equiv="refresh" content="0; url=/" /></html>'
+
 @app.route('/sync')
 def sync():
-    #sptfusername = input('Enter your Spotify username:')
-    sptfUsername = 'acepilotirl'
 
-    #Authorize with spotify
-    logSPTF = authSPTF(sptfUsername)
 
 
     print("Google Play: ")

@@ -4,9 +4,10 @@ from Support import trackFormat
 
 def authGPM(email, password):
 
-    print("Email: " + email + " Password: " + password + " MAC: ")
+    #Log in to GPM
+    print("Email: " + email + " Password: " + password)
     api = Mobileclient()
-    logged_in = api.login(email, password, Mobileclient.FROM_MAC_ADDRESS)
+    logged_in = api.login(email, password, '352bb0c3576e547d')
     # logged_in is True if login was successful
 
     print(logged_in)

@@ -9,8 +9,10 @@ from Support import trackFormat
 scope = 'user-library-modify'
 
 def authSPTF (username):
-    token = util.prompt_for_user_token(username, scope, '4d8051659f54443e9bea64aad8350768', '38ed408d7ff644d1b97c05321a847c82', 'https://www.spotify.com/ca-en/')
 
+    print("Spotify username: " + username)
+    token = util.prompt_for_user_token(username, scope, '4d8051659f54443e9bea64aad8350768', '38ed408d7ff644d1b97c05321a847c82', 'https://www.spotify.com/ca-en/')
+    print(token)
     return token
 
 def getTracksSPTF (token):
